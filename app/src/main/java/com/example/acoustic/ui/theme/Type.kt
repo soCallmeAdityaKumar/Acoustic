@@ -62,5 +62,10 @@ val NavigationRowText= Typography(
         fontFamily = montserrat,
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = montserrat,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp
     )
 )

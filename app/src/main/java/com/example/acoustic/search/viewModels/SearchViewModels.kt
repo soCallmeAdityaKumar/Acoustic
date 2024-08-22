@@ -2,7 +2,6 @@ package com.example.acoustic.search.viewModels
 
 import android.content.Context
 import android.os.Build
-import android.provider.ContactsContract.Data
 import android.util.Log
 import androidx.annotation.RequiresExtension
 import androidx.compose.runtime.State
@@ -10,20 +9,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.viewModelScope
 import com.example.acoustic.common.Resource
-import com.example.acoustic.library.data.UserPlaylists
-import com.example.acoustic.library.domain.PlayListsState
 import com.example.acoustic.login.domain.data.SharedPref
-import com.example.acoustic.search.data.album.Albums
+import com.example.acoustic.search.data.album.Album
 import com.example.acoustic.search.data.track.Tracks
 import com.example.acoustic.search.useCases.SearchAlbumUseCases
 import com.example.acoustic.search.useCases.SearchTrackUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -35,7 +29,7 @@ class SearchViewModels @Inject constructor(
     @ApplicationContext private val context: Context
 ): ViewModel() {
 
-    var _searchQuery by mutableStateOf("utopia")
+    var _searchQuery by mutableStateOf("")
         private set
 
     var type by mutableStateOf("album")
@@ -66,13 +60,15 @@ class SearchViewModels @Inject constructor(
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     fun onSearch(){
-        when(type){
-            TYPE.album.toString() ->{
-                getSearchAlbums(token = _token,_searchQuery)
-                Log.d("Search_ViewModel",_searchQuery)
-            }
-            TYPE.track.toString()->{
-                getSearchTrack(token = _token,_searchQuery)
+        if(_searchQuery.isNotEmpty()){
+            when(type){
+                TYPE.ALBUM.toString().lowercase() ->{
+                    getSearchAlbums(token = _token,_searchQuery)
+                    Log.d("Search_ViewModel",_searchQuery)
+                }
+                TYPE.TRACK.toString().lowercase()->{
+                    getSearchTrack(token = _token,_searchQuery)
+                }
             }
         }
     }
@@ -116,7 +112,7 @@ class SearchViewModels @Inject constructor(
 }
 
 enum class TYPE{
-    album,track
+    ALBUM,TRACK
 }
 
 data class ResultsState(
@@ -126,6 +122,6 @@ data class ResultsState(
 )
 
 data class DATA(
-    val album:Albums?=null,
+    val album: Album?=null,
     val track:Tracks?=null,
 )

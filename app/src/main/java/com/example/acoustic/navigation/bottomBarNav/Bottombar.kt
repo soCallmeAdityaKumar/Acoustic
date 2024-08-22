@@ -10,10 +10,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.structuralEqualityPolicy
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -22,9 +18,10 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.acoustic.navigation.routes.BottomNavBarScreens
 import com.example.acoustic.ui.theme.NavigationRowText
+import com.example.acoustic.ui.theme.albumBlackBackground
 import com.example.acoustic.ui.theme.loginButtonColor
-import kotlin.reflect.KProperty
 
 @Composable
 fun BottomBar(navController: NavHostController){
@@ -43,7 +40,7 @@ fun BottomBar(navController: NavHostController){
         modifier = Modifier
             .padding(horizontal = 10.dp, vertical = 50.dp)
             .clip(RoundedCornerShape(20.dp)),
-        backgroundColor = loginButtonColor
+        backgroundColor = albumBlackBackground
     ) {
         screens.forEach{screen->
             AddItem(screen,currentDestination,navController,selectedScreens){
@@ -59,21 +56,23 @@ fun RowScope.AddItem(
     screen: BottomNavBarScreens,
     currentDestination: NavDestination?,
     navController: NavHostController,
-    rememberSelectedScreen:BottomNavBarScreens,
+    rememberSelectedScreen: BottomNavBarScreens,
     changeSelectedScreen:(BottomNavBarScreens)->Unit
 ){
-//    var rememberSelectedScreen by mutableStateOf(screen)
+//    var rememberSelectedScreen by remember {
+//        mutableStateOf(screen)
+//    }
     BottomNavigationItem(
         label={
             Text(
                 text = screen.title,
                 fontSize =MaterialTheme.typography.body1.fontSize,
                 style = NavigationRowText.bodyLarge,
-//                color = if(rememberSelectedScreen==screen) Color.White else Color.Gray
+                color = if(currentDestination?.route==screen.route) loginButtonColor else Color.Gray
             )
         },
         icon = {
-            Icon(imageVector = screen.icon, contentDescription ="bottom_nav_icons" )
+            Icon(imageVector = screen.icon, contentDescription ="bottom_nav_icons", tint = if(currentDestination?.route==screen.route)loginButtonColor else Color.Gray)
         },
         selected = currentDestination?.hierarchy?.any {
             it.route==screen.route

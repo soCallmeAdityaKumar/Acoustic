@@ -9,7 +9,7 @@ class SharedPref @Inject constructor(@ApplicationContext context: Context) {
 
     private  val prefs:SharedPreferences=context.getSharedPreferences("shared_prefs",Context.MODE_PRIVATE)
 
-    fun save(data:String,name:String){
+    fun  save(data:String,name:String){
         prefs.edit().putString(name,data).apply()
     }
 

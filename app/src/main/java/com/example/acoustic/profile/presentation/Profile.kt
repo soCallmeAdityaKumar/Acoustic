@@ -1,8 +1,6 @@
 package com.example.acoustic.profile.presentation
 
 import android.os.Build
-import android.util.Log
-import android.widget.ImageButton
 import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,24 +18,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ButtonColors
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -45,12 +35,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.acoustic.R
-import com.example.acoustic.data.dto.user.Followers
-import com.example.acoustic.navigation.Screen
+import com.example.acoustic.navigation.routes.GraphRoutes
 import com.example.acoustic.profile.UserViewModel
-import com.example.acoustic.ui.theme.Acoustic
 import com.example.acoustic.ui.theme.NavigationRowText
-import com.example.acoustic.ui.theme.loginButtonColor
+import com.example.acoustic.ui.theme.appCustomBackground
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
@@ -61,19 +49,19 @@ fun Profile(
     val user=userViewModel.state.value
         Column(modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)) {
+            .background(appCustomBackground)) {
             Spacer(modifier = Modifier.height(20.dp))
             Box(modifier = Modifier
                 .fillMaxWidth()
                 .height(270.dp)
                 .padding(20.dp)
                 .clip(RoundedCornerShape(20.dp))
-                .background(loginButtonColor)
+                .background(Color.Black)
             ){
 
                 Column(Modifier.fillMaxSize()){
                     IconButton(onClick = {
-                        navController.navigate(Screen.HOME_GRAPH.route){
+                        navController.navigate(GraphRoutes.HOME_GRAPH.route){
                             popUpTo(navController.graph.startDestinationId)
                             launchSingleTop=true
                         }
@@ -172,7 +160,8 @@ fun Profile(
                             Image(
                                 painter = painterResource(id = R.drawable.ic_launcher_background),
                                 contentDescription = null,
-                                modifier = Modifier.padding(8.dp)
+                                modifier = Modifier
+                                    .padding(8.dp)
                                     .clip(CircleShape),
                                 contentScale = ContentScale.Crop
                             )

@@ -13,16 +13,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.acoustic.navigation.Screen
-import com.example.acoustic.navigation.Screens
+import com.example.acoustic.navigation.routes.GraphRoutes
 
 @Composable
 fun Register (navController: NavHostController){
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(text = "Register", modifier = Modifier
             .clickable {
-                navController.navigate(Screen.HOME_NAVIGATION.route){
-                    popUpTo(Screen.AUTHENTICATION_GRAPH.route){
+                navController.navigate(GraphRoutes.HOME_NAVIGATION.route){
+                    popUpTo(GraphRoutes.AUTHENTICATION_GRAPH.route){
                         inclusive=true
                     }
                 }

@@ -1,5 +1,6 @@
 package com.example.acoustic.di
 
+import com.example.acoustic.common.Constants
 import com.example.acoustic.data.SpotifyRepository
 import com.example.acoustic.data.SpotifyRepositoryImpl
 import com.example.acoustic.data.remote.SpotifyAPi
@@ -20,7 +21,7 @@ class AppModule {
     @Singleton
     fun providePaprikaApi():SpotifyAPi{
         return Retrofit.Builder()
-            .baseUrl("https://api.spotify.com")
+            .baseUrl(Constants.SPOTIFY_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(SpotifyAPi::class.java)

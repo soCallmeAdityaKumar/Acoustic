@@ -4,12 +4,9 @@ import android.app.Activity
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,31 +21,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.CompositingStrategy
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.layout
-import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.ConstraintSet
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.acoustic.R
-import com.example.acoustic.navigation.Screen
-import com.example.acoustic.navigation.auth.AuthRoute
+import com.example.acoustic.navigation.routes.GraphRoutes
 import com.example.acoustic.ui.theme.Acoustic
 import com.example.acoustic.ui.theme.loginButtonColor
 
@@ -147,8 +130,8 @@ fun LoginScreen (
                                 fontWeight = FontWeight.Bold,
                                 fontSize = MaterialTheme.typography.headlineMedium.fontSize
                             )
-                            navController.navigate(Screen.HOME_NAVIGATION.route) {
-                                popUpTo(Screen.AUTHENTICATION_GRAPH.route) {
+                            navController.navigate(GraphRoutes.HOME_NAVIGATION.route) {
+                                popUpTo(GraphRoutes.AUTHENTICATION_GRAPH.route) {
                                     inclusive = true
                                 }
                             }

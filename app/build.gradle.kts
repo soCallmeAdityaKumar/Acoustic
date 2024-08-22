@@ -77,8 +77,9 @@ dependencies {
 
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
-    implementation("androidx.navigation:navigation-compose:$nav_version")
+//    implementation("androidx.navigation:navigation-compose:$nav_version")
     implementation("androidx.compose.material:material:1.4.2")
+    implementation ("androidx.navigation:navigation-compose:2.5.2")
 
 
     //Spotify-- Authentication
@@ -112,6 +113,10 @@ dependencies {
 
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
     implementation("androidx.compose.runtime:runtime-livedata:1.6.8")
+
+    //Coil
+    implementation("io.coil-kt:coil-compose:2.2.2")
+
 
 
 

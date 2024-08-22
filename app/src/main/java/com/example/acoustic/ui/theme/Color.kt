@@ -11,10 +11,10 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 //Background
-val appBackground=Color(0xFFEEEEEE)
 val cardblack= Color(0xFF111111)
 val cardWhite=Color(0xFFF1F1F1)
 val yellowVibrant=Color(0xFFCAFC01)
 val blackVibrant=Color(0xFF000000)
-
-val loginButtonColor=Color(0xFF354ce9)
+val appCustomBackground=Color(0xFF141414)
+val albumBlackBackground=Color(0xFF000000)
+val loginButtonColor=Color(0xFF4361ee)
