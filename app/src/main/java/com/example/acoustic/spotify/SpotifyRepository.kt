@@ -42,7 +42,8 @@ class SpotifyRepository @Inject constructor(private val sharedPref: SharedPref) 
         private const val CLIENT_ID="12a02e7930b14a748d832d05e668f146"
         private  const val  REDIRECT_URI="com.example.acoustic://callback"
         private const val  USER_TOKEN_KEY="USER_TOKEN"
-        private const val  AUTH_TIME="USER_TOKEN"
+        private const val  AUTH_TIME="LAST_AUTH_TIME"
+        private const val  USER_ID="USER_ID"
 
     }
 }

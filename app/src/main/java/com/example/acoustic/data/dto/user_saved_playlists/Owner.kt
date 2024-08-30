@@ -1,4 +1,4 @@
-package com.example.acoustic.data.dto.user_saved_playlist
+package com.example.acoustic.data.dto.user_saved_playlists
 
 data class Owner(
     val display_name: String,

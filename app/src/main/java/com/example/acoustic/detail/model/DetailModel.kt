@@ -5,6 +5,9 @@ import com.example.acoustic.data.dto.album.Item
 import com.example.acoustic.data.dto.artist.getartist.Artist
 import com.example.acoustic.data.dto.artist.artistAlbum.ArtistAlbum
 import com.example.acoustic.albumCard.AlbumItem
+import com.example.acoustic.data.dto.playlist.PlayList
+import com.example.acoustic.data.dto.playlist.Track
+import com.example.acoustic.data.dto.playlist.Tracks
 
 data class DetailModel(
     val id:String?,
@@ -122,4 +125,33 @@ fun Artist.toDetailModel():DetailModel{
         artistName = name,
         artistImage = images[0].url
     )
+}
+
+
+fun PlayList.toDetailModel():DetailModel{
+    return DetailModel(
+        id = id,
+        name=name,
+        image = tracks.toImageItem(),
+        artistImage = images[0].url,
+        type = type,
+        artistName = null,
+        followers = followers.total,
+        list = tracks.toListAlbumItem()
+    )
+}
+
+fun Tracks.toListAlbumItem():List<AlbumItem>{
+    val listAI= mutableListOf<AlbumItem>()
+    for(i in items){
+        listAI.add(AlbumItem(i.track.name,i.track.id,i.track.artists[0].name))
+    }
+    return listAI
+}
+fun Tracks.toImageItem():List<String>{
+    val images= mutableListOf<String>()
+    for(i in items){
+        images.add(i.track.album.images[0].url)
+    }
+    return images
 }

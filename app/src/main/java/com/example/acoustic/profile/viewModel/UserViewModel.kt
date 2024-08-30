@@ -1,4 +1,4 @@
-package com.example.acoustic.profile
+package com.example.acoustic.profile.viewModel
 
 import android.content.Context
 import android.os.Build
@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.annotation.RequiresExtension
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.acoustic.common.Resource
@@ -45,13 +44,13 @@ class UserViewModel @Inject constructor(
             Log.d("User","result->${result}")
             when(result){
                 is Resource.Success<*> ->{
-                    _state.value=UserState(userDetail = result.data)
+                    _state.value= UserState(userDetail = result.data)
                 }
                 is Resource.Error->{
-                    _state.value=UserState(error = result.message?:"An unexpected error occurred ")
+                    _state.value= UserState(error = result.message?:"An unexpected error occurred ")
                 }
                 is Resource.Loading->{
-                    _state.value=UserState(isLoading = true)
+                    _state.value= UserState(isLoading = true)
                 }
             }
         }

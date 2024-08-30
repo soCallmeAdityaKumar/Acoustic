@@ -1,6 +1,6 @@
-package com.example.acoustic.data.dto.user_saved_playlist
+package com.example.acoustic.data.dto.playlist
 
-data class User_Playlist(
+data class Tracks(
     val href: String,
     val items: List<Item>,
     val limit: Int,

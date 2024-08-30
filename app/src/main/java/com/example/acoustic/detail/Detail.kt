@@ -64,7 +64,7 @@ fun Detail(
     Column (modifier = Modifier
         .fillMaxSize()
         .verticalScroll(scrollState)) {
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(30.dp))
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -111,7 +111,7 @@ fun Detail(
                         color = loginButtonColor
                     )
                 }
-                if(type.uppercase()!=TYPE.ARTIST.toString()) {
+                if(type.uppercase()==TYPE.ARTIST.toString()) {
                     Row(
                         Modifier
                             .fillMaxWidth()
@@ -147,7 +147,7 @@ fun Detail(
 
                 var count=0
                 detailViewModel.detailState.value.result?.list?.take(itemtoShow)?.forEach {
-                    AlbumItemBox(item = it, detailViewModel.detailState.value.result!!.image!![count++])
+                    AlbumItemBox(item = it, detailViewModel.detailState.value.result?.image!![count++])
                 }
 
 

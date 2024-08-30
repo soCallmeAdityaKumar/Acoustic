@@ -1,4 +1,4 @@
-package com.example.acoustic.library.domain
+package com.example.acoustic.library.viewModel
 
 import android.content.Context
 import android.os.Build
@@ -9,9 +9,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.acoustic.common.Resource
-import com.example.acoustic.data.dto.user.User_Detail
-import com.example.acoustic.library.data.UserPlaylists
-import com.example.acoustic.library.useCases.LibraryUseCases
+import com.example.acoustic.data.dto.user_saved_playlists.User_Playlists
+import com.example.acoustic.library.useCases.LibraryPlayListUseCases
 import com.example.acoustic.login.domain.data.SharedPref
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -22,7 +21,7 @@ import javax.inject.Inject
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @HiltViewModel
 class LibraryViewModel @Inject constructor(
-    private val libraryUseCases: LibraryUseCases,
+    private val savedPlayListUseCases: LibraryPlayListUseCases,
     @ApplicationContext private val context: Context
 ):ViewModel() {
 
@@ -35,12 +34,12 @@ class LibraryViewModel @Inject constructor(
         val token=sharedPref.value("USER_TOKEN")
         if(token!=null){
             Log.d("Library","token->$token")
-            getUserPlaylists(token)
+            getUserPlaylists(token, id = "t4o9jvy8044mnkb6qiawfaqag")
         }
     }
 
-    private fun getUserPlaylists(token:String){
-        libraryUseCases.invoke(token).onEach {result->
+    private fun getUserPlaylists(token:String,id:String){
+        savedPlayListUseCases.invoke(token,id).onEach {result->
             Log.d("Library","result->${result}")
             when(result){
                 is Resource.Success<*> ->{
@@ -61,5 +60,5 @@ class LibraryViewModel @Inject constructor(
 data class PlayListsState(
     val isLoading:Boolean=false,
     val error:String="",
-    val playList: UserPlaylists?=null
+    val playList: User_Playlists?=null
 )

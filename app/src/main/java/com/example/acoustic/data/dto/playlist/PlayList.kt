@@ -1,9 +1,10 @@
-package com.example.acoustic.data.dto.user_saved_playlist
+package com.example.acoustic.data.dto.playlist
 
-data class Item(
+data class PlayList(
     val collaborative: Boolean,
     val description: String,
     val external_urls: ExternalUrls,
+    val followers: Followers,
     val href: String,
     val id: String,
     val images: List<Image>,

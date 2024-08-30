@@ -1,4 +1,4 @@
-package com.example.acoustic.data.dto.user_saved_playlist
+package com.example.acoustic.data.dto.user_saved_playlists
 
 data class Image(
     val height: Int,

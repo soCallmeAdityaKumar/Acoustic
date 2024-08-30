@@ -1,6 +1,7 @@
-package com.example.acoustic.profile.presentation
+package com.example.acoustic.profile
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -35,16 +36,19 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.acoustic.R
+import com.example.acoustic.login.domain.data.SharedPref
 import com.example.acoustic.navigation.routes.GraphRoutes
-import com.example.acoustic.profile.UserViewModel
+import com.example.acoustic.profile.viewModel.UserViewModel
 import com.example.acoustic.ui.theme.NavigationRowText
 import com.example.acoustic.ui.theme.appCustomBackground
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlin.coroutines.coroutineContext
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun Profile(
     navController: NavHostController,
-    userViewModel: UserViewModel= hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel(),
 ) {
     val user=userViewModel.state.value
         Column(modifier = Modifier
@@ -142,6 +146,7 @@ fun Profile(
                 }
             }
             if(!user.userDetail?.id.isNullOrBlank()){
+                Log.d("Library","id->${user.userDetail?.id.toString()}")
                 Row(modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 20.dp, start = 20.dp, end = 20.dp)) {

@@ -8,5 +8,7 @@ enum class TYPE{
     ALBUM,
     ARTIST,
     GENRE,
-    CATEGORIES
+    CATEGORIES,
+    LIBRARY,
+    PLAYLIST
 }

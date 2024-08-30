@@ -15,6 +15,8 @@ import com.example.acoustic.detail.model.DetailModel
 import com.example.acoustic.detail.useCases.AlbumUseCase
 import com.example.acoustic.detail.useCases.ArtistAlbumUseCase
 import com.example.acoustic.detail.useCases.ArtistUseCase
+import com.example.acoustic.detail.useCases.PlayListUseCase
+import com.example.acoustic.library.useCases.LibraryPlayListUseCases
 import com.example.acoustic.login.domain.data.SharedPref
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -29,6 +31,7 @@ class DetailViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val albumUseCases: AlbumUseCase,
     private val artistAlbumUseCase: ArtistAlbumUseCase,
+    private val playListUseCases: PlayListUseCase,
     private val artistUseCase: ArtistUseCase
 ):ViewModel() {
      var token:String=""
@@ -57,6 +60,9 @@ class DetailViewModel @Inject constructor(
                 }
                 TYPE.CATEGORIES.toString()->{
                     getAlbum(token)
+                }
+                TYPE.PLAYLIST.toString()->{
+                    getPlaylist(token)
                 }
                 TYPE.ARTIST.toString()->{
                     Log.d("getAlbum","inside the Artist block")
@@ -103,6 +109,23 @@ class DetailViewModel @Inject constructor(
     }
     private fun getArtist(token: String){
         artistUseCase.invoke(token,id).onEach { result->
+            when(result){
+                is Resource.Success ->{
+                    _detailState.value= DetailClass(result =result.data)
+                    resetValues()
+                }
+                is Resource.Error->{
+                    _detailState.value= DetailClass(error = result.message?:"An unexpected error occurred ")
+                }
+                is Resource.Loading->{
+                    _detailState.value= DetailClass(isLoading = true)
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    private fun getPlaylist(token: String){
+        playListUseCases.invoke(token,id).onEach { result->
             when(result){
                 is Resource.Success ->{
                     _detailState.value= DetailClass(result =result.data)
