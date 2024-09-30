@@ -6,6 +6,7 @@ import com.example.acoustic.data.dto.severalArtists.Artists
 import com.example.acoustic.data.dto.categories.Categories
 import com.example.acoustic.data.dto.new_releases.Releases
 import com.example.acoustic.data.dto.playlist.PlayList
+import com.example.acoustic.data.dto.track.Track
 import com.example.acoustic.data.dto.user.User_Detail
 import com.example.acoustic.data.dto.user_saved_playlists.User_Playlists
 import com.example.acoustic.data.remote.SpotifyAPi
@@ -49,6 +50,10 @@ class SpotifyRepositoryImpl @Inject constructor(private val spotifyAPi: SpotifyA
 
     override suspend fun getPlayList(token: String, id: String): PlayList {
         return spotifyAPi.getPlayList(token,id)
+    }
+
+    override suspend fun getTrack(token: String, id: String): Track {
+        return spotifyAPi.getTrack(token,id)
     }
 
     override suspend fun getArtistAlbum(token: String, id: String): ArtistAlbum {

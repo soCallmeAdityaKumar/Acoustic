@@ -45,7 +45,6 @@ fun LoginScreen (
     Log.d("Login","Activity viewModel->${viewModel}")
     val authState by viewModel.authState.observeAsState(null)
 
-
         Box(modifier = Modifier
             .fillMaxSize()
             .background(color = Color.Black)){

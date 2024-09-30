@@ -9,4 +9,8 @@ sealed class Screens(
         title = "Detail",
         route = "detail_screen/{id}/{type}"
     )
+    data object Player:Screens(
+        title = "Player",
+        route = "player_screen/{id}"
+    )
 }

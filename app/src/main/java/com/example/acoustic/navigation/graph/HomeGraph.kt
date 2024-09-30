@@ -14,6 +14,7 @@ import com.example.acoustic.library.Library
 import com.example.acoustic.navigation.routes.BottomNavBarScreens
 import com.example.acoustic.navigation.routes.GraphRoutes
 import com.example.acoustic.navigation.routes.Screens
+import com.example.acoustic.player.Player
 import com.example.acoustic.search.Search
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
@@ -31,6 +32,15 @@ fun NavGraphBuilder.HomeGraph(
 
         composable(route= BottomNavBarScreens.Library.route){
             Library(navController = navController)
+        }
+        composable(route=Screens.Player.route,
+            arguments = listOf(
+                navArgument("id"){
+                type=NavType.StringType
+        }))
+        {
+            val id=it.arguments?.getString("id")
+            Player(id)
         }
 
         composable(

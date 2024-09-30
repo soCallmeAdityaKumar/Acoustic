@@ -12,3 +12,9 @@ enum class TYPE{
     LIBRARY,
     PLAYLIST
 }
+
+enum class SHARED_PREF{
+    USER_PHONE,
+    USER_TOKEN
+
+}

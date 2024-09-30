@@ -41,6 +41,7 @@ import com.example.acoustic.ui.theme.Acoustic
 import com.example.acoustic.ui.theme.NavigationRowText
 import com.example.acoustic.ui.theme.appCustomBackground
 import kotlinx.coroutines.launch
+import javax.crypto.SecretKey
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -94,7 +95,7 @@ fun HomeNavigation(activity: Activity, homeNavController: NavHostController) {
         Scaffold(
             topBar = {
                 if(!showDrawer){
-                    if(currentDestination?.route!= BottomNavBarScreens.Search.route&&currentDestination?.route!=Screens.Detail.route){
+                    if(currentDestination?.route!= BottomNavBarScreens.Search.route&&currentDestination?.route!=Screens.Detail.route&&currentDestination?.route!=Screens.Player.route){
                         TopAppBar(
                             scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
                             colors = TopAppBarDefaults.topAppBarColors(containerColor = appCustomBackground, titleContentColor = Color.White),

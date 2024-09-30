@@ -1,14 +1,17 @@
 package com.example.acoustic.di
 
+import android.content.Context
+import android.media.MediaPlayer
 import com.example.acoustic.common.Constants
 import com.example.acoustic.data.SpotifyRepository
 import com.example.acoustic.data.SpotifyRepositoryImpl
 import com.example.acoustic.data.remote.SpotifyAPi
+import com.google.android.exoplayer2.ExoPlayer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -32,6 +35,7 @@ class AppModule {
     fun provideSpotifyRepository(api:SpotifyAPi):SpotifyRepository{
         return SpotifyRepositoryImpl(api)
     }
+
 
 
 }

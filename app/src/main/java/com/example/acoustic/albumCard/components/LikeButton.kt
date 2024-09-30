@@ -14,7 +14,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun LikeButton(liked:Boolean,modifier: Modifier) {
-    IconButton(onClick = { /*TODO*/ },
+    IconButton(onClick = {
+    },
         modifier = modifier
         .fillMaxHeight()
             .padding(10.dp)) {

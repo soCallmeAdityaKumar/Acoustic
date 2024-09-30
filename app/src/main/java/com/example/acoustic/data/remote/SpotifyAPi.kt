@@ -6,6 +6,7 @@ import com.example.acoustic.data.dto.severalArtists.Artists
 import com.example.acoustic.data.dto.categories.Categories
 import com.example.acoustic.data.dto.new_releases.Releases
 import com.example.acoustic.data.dto.playlist.PlayList
+import com.example.acoustic.data.dto.track.Track
 import com.example.acoustic.data.dto.user.User_Detail
 import com.example.acoustic.data.dto.user_saved_playlists.User_Playlists
 import com.example.acoustic.search.data.album.Album
@@ -83,6 +84,12 @@ interface SpotifyAPi {
     //PLAYLIST
     @GET("v1/playlists/{playlist_id}")
     suspend fun getPlayList(@Header("Authorization")token:String, @Path("playlist_id")id:String):PlayList
+
+
+
+    //Track
+    @GET("v1/track/{id}")
+    suspend fun getTrack(@Header("Authorization")token:String, @Path("id")id:String):Track
 
 
 

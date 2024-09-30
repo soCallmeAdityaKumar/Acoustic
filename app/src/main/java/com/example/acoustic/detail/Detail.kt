@@ -38,6 +38,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavHost
+import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
 import com.example.acoustic.common.TYPE
 import com.example.acoustic.albumCard.AlbumItemBox
@@ -51,7 +53,7 @@ import com.example.acoustic.ui.theme.montserrat
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun Detail(
-    navController: NavController,
+    navController: NavHostController,
     id:String,
     type:String,
     detailViewModel: DetailViewModel = hiltViewModel()
@@ -138,7 +140,7 @@ fun Detail(
         Spacer(modifier = Modifier.height(20.dp))
         if(!detailViewModel.detailState.value.result?.list.isNullOrEmpty()){
             Text(
-                "Tracks", color = Color.White,
+                "Album", color = Color.White,
                 fontSize = MaterialTheme.typography.headlineSmall.fontSize,
                 style = NavigationRowText.bodyLarge,
                 modifier = Modifier.padding(10.dp)
@@ -147,7 +149,7 @@ fun Detail(
 
                 var count=0
                 detailViewModel.detailState.value.result?.list?.take(itemtoShow)?.forEach {
-                    AlbumItemBox(item = it, detailViewModel.detailState.value.result?.image!![count++])
+                    AlbumItemBox(navController,item = it, detailViewModel.detailState.value.result?.image!![count++])
                 }
 
 
