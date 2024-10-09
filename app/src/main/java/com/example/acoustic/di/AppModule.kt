@@ -6,7 +6,6 @@ import com.example.acoustic.common.Constants
 import com.example.acoustic.data.SpotifyRepository
 import com.example.acoustic.data.SpotifyRepositoryImpl
 import com.example.acoustic.data.remote.SpotifyAPi
-import com.google.android.exoplayer2.ExoPlayer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

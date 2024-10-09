@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresExtension
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
@@ -18,8 +19,11 @@ import com.example.acoustic.detail.useCases.ArtistUseCase
 import com.example.acoustic.detail.useCases.PlayListUseCase
 import com.example.acoustic.library.useCases.LibraryPlayListUseCases
 import com.example.acoustic.login.domain.data.SharedPref
+import com.example.acoustic.search.useCases.SearchAlbumUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -32,10 +36,12 @@ class DetailViewModel @Inject constructor(
     private val albumUseCases: AlbumUseCase,
     private val artistAlbumUseCase: ArtistAlbumUseCase,
     private val playListUseCases: PlayListUseCase,
-    private val artistUseCase: ArtistUseCase
+    private val artistUseCase: ArtistUseCase,
+    private val searchAlbumUseCases: SearchAlbumUseCases
 ):ViewModel() {
      var token:String=""
      var id:String=""
+     var typeHeading= mutableStateOf("")
      var name:String?=null
      var type:String?=null
      var image:String?=null
@@ -45,17 +51,18 @@ class DetailViewModel @Inject constructor(
     val detailState: State<DetailClass> = _detailState
 
     init {
-        id=savedStateHandle.get<String>("id").toString()
-        type=savedStateHandle.get<String?>("type").toString()
-        Log.d("getAlbum","type->$type, id->$id")
         val sharedPref= SharedPref(context)
         token=sharedPref.value("USER_TOKEN").toString()
+    }
+
+
+    fun start(){
         if (token != null) {
             when(type?.uppercase()){
                 TYPE.ALBUM.toString()->{
                     getAlbum(token)
                 }
-                 TYPE.GENRE.toString()->{
+                TYPE.GENRE.toString()->{
 
                 }
                 TYPE.CATEGORIES.toString()->{
@@ -72,6 +79,16 @@ class DetailViewModel @Inject constructor(
             }
         }
     }
+    fun changeTypeHeading() {
+        Log.d("Detail","type->${type}")
+        when(type){
+            TYPE.ARTIST.toString().toLowerCase()-> typeHeading.value="Album"
+            TYPE.ALBUM.toString().toLowerCase()->typeHeading.value="Tracks"
+            TYPE.LIBRARY.toString().toLowerCase()->typeHeading.value="Tracks"
+            TYPE.PLAYLIST.toString().toLowerCase()->typeHeading.value="Tracks"
+        }
+    }
+
     private  fun getAlbum(token:String){
         albumUseCases.invoke(token,id).onEach {result->
             Log.d("getAlbum","result->${result}")

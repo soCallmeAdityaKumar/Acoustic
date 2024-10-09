@@ -1,5 +1,6 @@
 package com.example.acoustic.data.remote
 
+import com.example.acoustic.data.dto.AlbumTrack.Album_track
 import com.example.acoustic.data.dto.artist.getartist.Artist
 import com.example.acoustic.data.dto.artist.artistAlbum.ArtistAlbum
 import com.example.acoustic.data.dto.severalArtists.Artists
@@ -79,6 +80,10 @@ interface SpotifyAPi {
     @GET("v1/albums/{id}")
     suspend fun getAlbum(@Header("Authorization")token:String, @Path("id")albumId:String):com.example.acoustic.data.dto.album.Album
 
+    @GET("v1/albums/{id}/tracks")
+    suspend fun getAlbumTracks(@Header("Authorization")token:String, @Path("id")albumId:String):Album_track
+
+
 
 
     //PLAYLIST
@@ -88,8 +93,8 @@ interface SpotifyAPi {
 
 
     //Track
-    @GET("v1/track/{id}")
-    suspend fun getTrack(@Header("Authorization")token:String, @Path("id")id:String):Track
+    @GET("v1/tracks/{id}")
+    suspend fun getTrack(@Header("Authorization")token:String, @Path("id")id:String, @Query("market")market:String="ES"):Track
 
 
 

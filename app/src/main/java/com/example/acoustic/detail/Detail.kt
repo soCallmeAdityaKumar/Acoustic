@@ -1,6 +1,7 @@
 package com.example.acoustic.detail
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,9 +28,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
@@ -49,6 +53,8 @@ import com.example.acoustic.ui.theme.NavigationRowText
 import com.example.acoustic.ui.theme.albumBlackBackground
 import com.example.acoustic.ui.theme.loginButtonColor
 import com.example.acoustic.ui.theme.montserrat
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
@@ -56,11 +62,25 @@ fun Detail(
     navController: NavHostController,
     id:String,
     type:String,
-    detailViewModel: DetailViewModel = hiltViewModel()
 ) {
     val scrollState= rememberScrollState()
     var itemtoShow by remember{ mutableStateOf(5) }
     var showTrack by remember{ mutableStateOf(true) }
+
+    val detailViewModel: DetailViewModel = hiltViewModel()
+    detailViewModel.type=type
+    detailViewModel.id=id
+    var typeHe by remember {
+        mutableStateOf("hello")
+    }
+    detailViewModel.changeTypeHeading()
+//    Log.d("Detail","id->${id} and type->${type},${detailViewModel.typeHeading}")
+
+
+    LaunchedEffect(key1 = detailViewModel.id, key2 = detailViewModel.type) {
+        detailViewModel.start()
+        Log.d("Detail","Second id->${detailViewModel.id} and type->${detailViewModel.type},${detailViewModel.typeHeading.value}")
+    }
 
 
     Column (modifier = Modifier
@@ -138,41 +158,43 @@ fun Detail(
 
         }
         Spacer(modifier = Modifier.height(20.dp))
-        if(!detailViewModel.detailState.value.result?.list.isNullOrEmpty()){
+        if(!detailViewModel.type.isNullOrEmpty()&&!detailViewModel.detailState.value.result?.list.isNullOrEmpty()){
             Text(
-                "Album", color = Color.White,
+                detailViewModel.typeHeading.value, color = Color.White,
                 fontSize = MaterialTheme.typography.headlineSmall.fontSize,
                 style = NavigationRowText.bodyLarge,
                 modifier = Modifier.padding(10.dp)
             )
             if (detailViewModel.detailState.value.result?.list?.isEmpty() == false) {
-
                 var count=0
                 detailViewModel.detailState.value.result?.list?.take(itemtoShow)?.forEach {
-                    AlbumItemBox(navController,item = it, detailViewModel.detailState.value.result?.image!![count++])
+                    AlbumItemBox(navController,item = it, detailViewModel.detailState.value.result?.image!![count++],detailViewModel.type.toString())
                 }
-
-
             }
 
             if(itemtoShow>=detailViewModel.detailState.value.result?.list?.size!!){
                 showTrack=false
             }
             if (showTrack) {
-                Text(text = "Show More", Modifier.padding(bottom = 60.dp, start = 15.dp).clickable {
-                    if (itemtoShow + 5 > detailViewModel.detailState.value.result?.list?.size!!) {
-                        itemtoShow = detailViewModel.detailState.value.result?.list?.size!!
-                        showTrack=false
-                    } else {
-                        itemtoShow += 5
-                        if(itemtoShow>=detailViewModel.detailState.value.result?.list?.size!!){
-                            showTrack=false
-                        }
-                    }
-                }, fontSize =MaterialTheme.typography.bodyLarge.fontSize, color = Color.White, fontFamily = montserrat)
+                Text(text = "Show More",
+                    Modifier
+                        .padding(bottom = 60.dp, start = 15.dp)
+                        .clickable {
+                            if (itemtoShow + 5 > detailViewModel.detailState.value.result?.list?.size!!) {
+                                itemtoShow = detailViewModel.detailState.value.result?.list?.size!!
+                                showTrack = false
+                            } else {
+                                itemtoShow += 5
+                                if (itemtoShow >= detailViewModel.detailState.value.result?.list?.size!!) {
+                                    showTrack = false
+                                }
+                            }
+                        }, fontSize =MaterialTheme.typography.bodyLarge.fontSize, color = Color.White, fontFamily = montserrat)
             }
         }
         }
 
 }
+
+
 

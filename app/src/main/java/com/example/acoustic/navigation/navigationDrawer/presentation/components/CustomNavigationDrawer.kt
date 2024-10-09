@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -78,17 +80,19 @@ fun CustomNavigationDrawer(
         Spacer(modifier = Modifier.height(304.dp))
         navigationDrawerItem().takeLast(1).forEach { navigationItem ->
             Row(modifier = Modifier
-                .padding(horizontal = 10.dp)
-                .clip(RoundedCornerShape(10.dp))
                 .clickable {
 //                    SharedPref(activity.baseContext).delete("USER_TOKEN")
                     isLoggout()
                 },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
-            ){
-                Text(text=navigationItem.title,
-                    Modifier.padding(10.dp).background(loginButtonColor),
+            ) {
+                Text(
+                    text = navigationItem.title,
+                    Modifier
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(loginButtonColor)
+                        .padding(10.dp),
                     color = Color.White,
                     style = NavigationRowText.bodyLarge
                 )

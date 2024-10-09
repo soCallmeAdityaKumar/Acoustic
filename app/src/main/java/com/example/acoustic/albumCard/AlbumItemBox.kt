@@ -1,5 +1,6 @@
 package com.example.acoustic.albumCard
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,23 +19,32 @@ import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
 import com.example.acoustic.albumCard.components.DialogButton
 import com.example.acoustic.albumCard.components.LikeButton
+import com.example.acoustic.common.TYPE
 import com.example.acoustic.navigation.routes.Screens
 import com.example.acoustic.ui.theme.NavigationRowText
 import com.example.acoustic.ui.theme.albumBlackBackground
 
 
 @Composable
-fun AlbumItemBox(navController: NavHostController, item: AlbumItem, image:String){
+fun AlbumItemBox(navController: NavHostController, item: AlbumItem, image:String,type:String){
+
+    Log.d("Detail","AlbumItem->${type} ")
 
     Card(modifier = Modifier
         .fillMaxWidth()
@@ -57,7 +67,16 @@ fun AlbumItemBox(navController: NavHostController, item: AlbumItem, image:String
                         .clip(CircleShape), contentScale = ContentScale.Crop)
                 Column(modifier = Modifier
                     .clickable {
-                        navController.navigate(Screens.Player.route.replace("{id}",item.id))
+                            if (type == TYPE.ARTIST.toString())
+                                navController.navigate(
+                                    Screens.Detail.route.replace("{id}", item.id)
+                                        .replace("{type}", "Album")
+                                )
+                            if (type == TYPE.ALBUM.toString())
+                                navController.navigate(
+                                    Screens.Player.route.replace("{id}", item.id)
+                                        .replace("{type}", "Tracks")
+                                )
                     }
                     .fillMaxHeight()
                     .weight(50f)

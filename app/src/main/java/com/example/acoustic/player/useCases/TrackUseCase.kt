@@ -11,15 +11,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class TrackUseCase  @Inject constructor (
+class TrackUseCase @Inject constructor (
     private val repository: SpotifyRepository
 ){
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     operator fun invoke(token:String,id:String) : Flow<Resource<Track>> = flow {
+//        Log.d("PlayerUseCase","${token} id->${id}")
         try{
             emit(Resource.Loading(null))
             val track=repository.getTrack("Bearer $token",id)
-            Log.d("Track",token)
+            Log.d("PlayerUseCase","${token} id->${id}")
             emit(Resource.Success(track))
         }catch (e: HttpException){
             emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred",null))

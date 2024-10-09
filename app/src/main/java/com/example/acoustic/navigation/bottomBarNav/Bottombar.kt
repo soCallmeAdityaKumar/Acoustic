@@ -1,5 +1,6 @@
 package com.example.acoustic.navigation.bottomBarNav
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,18 +37,18 @@ fun BottomBar(navController: NavHostController){
     val currentDestination= navBackStackEntry?.destination
     var selectedScreens=screens[0]
 
-    BottomNavigation(
-        modifier = Modifier
-            .padding(horizontal = 10.dp, vertical = 50.dp)
-            .clip(RoundedCornerShape(20.dp)),
-        backgroundColor = albumBlackBackground
-    ) {
-        screens.forEach{screen->
-            AddItem(screen,currentDestination,navController,selectedScreens){
-                selectedScreens=it
+        BottomNavigation(
+            modifier = Modifier
+                .padding(horizontal = 10.dp, vertical = 50.dp)
+                .clip(RoundedCornerShape(20.dp)),
+            backgroundColor = loginButtonColor
+        ) {
+            screens.forEach{screen->
+                AddItem(screen,currentDestination,navController,selectedScreens){
+                    selectedScreens=it
+                }
             }
         }
-    }
 
 }
 
@@ -68,11 +69,11 @@ fun RowScope.AddItem(
                 text = screen.title,
                 fontSize =MaterialTheme.typography.body1.fontSize,
                 style = NavigationRowText.bodyLarge,
-                color = if(currentDestination?.route==screen.route) loginButtonColor else Color.Gray
+                color = if(currentDestination?.route==screen.route) Color.White else Color.Black
             )
         },
         icon = {
-            Icon(imageVector = screen.icon, contentDescription ="bottom_nav_icons", tint = if(currentDestination?.route==screen.route)loginButtonColor else Color.Gray)
+            Icon(imageVector = screen.icon, contentDescription ="bottom_nav_icons", tint = if(currentDestination?.route==screen.route)Color.White else Color.Black)
         },
         selected = currentDestination?.hierarchy?.any {
             it.route==screen.route

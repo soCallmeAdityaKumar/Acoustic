@@ -11,6 +11,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -42,6 +43,7 @@ fun AcousticTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
+
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
@@ -51,6 +53,9 @@ fun AcousticTheme(
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
+
+    val statusBar= rememberSystemUiController()
+    statusBar.setStatusBarColor(Color.Transparent)
 
     MaterialTheme(
         colorScheme = DarkColorScheme,

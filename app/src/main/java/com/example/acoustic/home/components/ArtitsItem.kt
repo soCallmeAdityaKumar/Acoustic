@@ -40,10 +40,10 @@ fun ArtistItem(
       .height(150.dp)
      .clip(RoundedCornerShape(20.dp))
       .clickable {
-          val savedStateHandle:SavedStateHandle=SavedStateHandle()
-          savedStateHandle.set("id",id)
-          savedStateHandle.set("type",type)
-          Log.d("getAlbum","type->$type")
+//          val savedStateHandle:SavedStateHandle=SavedStateHandle()
+//          savedStateHandle.set("id",id)
+//          savedStateHandle.set("type",type)
+//          Log.d("getAlbum","type->$type")
           navController.navigate(Screens.Detail.route.replace("{id}",id).replace("{type}",type))
       }){
          Image(painter =  rememberImagePainter(data = url),

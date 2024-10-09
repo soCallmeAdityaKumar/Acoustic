@@ -117,16 +117,8 @@ dependencies {
     //Coil
     implementation("io.coil-kt:coil-compose:2.2.2")
 
-    //ExoPlayer
-//    implementation("androidx.media3:media3-exoplayer:1.4.1")
-//    implementation("androidx.media3:media3-exoplayer-dash:1.4.1")
-//    implementation("androidx.media3:media3-ui:1.4.1")
-    implementation ("com.google.android.exoplayer:exoplayer:2.18.1")
 
-
-
-
-
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
 
 
 

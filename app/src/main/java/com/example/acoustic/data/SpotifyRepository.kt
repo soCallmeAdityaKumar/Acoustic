@@ -1,5 +1,6 @@
 package com.example.acoustic.data
 
+import com.example.acoustic.data.dto.AlbumTrack.Album_track
 import com.example.acoustic.data.dto.artist.getartist.Artist
 import com.example.acoustic.data.dto.artist.artistAlbum.ArtistAlbum
 import com.example.acoustic.data.dto.severalArtists.Artists
@@ -43,6 +44,8 @@ interface SpotifyRepository  {
 
     //ALBUM
     suspend fun getForAlbum(token: String,id:String):com.example.acoustic.data.dto.album.Album
+
+    suspend fun getAlbumTrack(token: String,id:String):Album_track
 
 
     //PLAYLIST

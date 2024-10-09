@@ -3,7 +3,7 @@ package com.example.acoustic.data.dto.track
 data class Track(
     val album: Album,
     val artists: List<ArtistX>,
-    val available_markets: List<Any>,
+    val available_markets: List<String>,
     val disc_number: Int,
     val duration_ms: Int,
     val explicit: Boolean,

@@ -30,23 +30,22 @@ class PlayerViewModel @Inject constructor(
     private val _track= mutableStateOf(TrackState())
     val track:MutableState<TrackState>  = _track
 
+     var id="";
      var token:String=""
-
-
 
     init {
         if(sharedPref.ifContain(SHARED_PREF.USER_TOKEN.toString())){
             token=sharedPref.value(SHARED_PREF.USER_TOKEN.toString()).toString()
-            Log.d("Track",token+"all")
-
+            getTracks(id)
         }
     }
 
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     fun getTracks(id: String){
+        Log.d("PlayerViewModel",token+" all "+id)
         trackUseCase.invoke(token,id).onEach {result->
-            Log.d("Track","result->${result}")
+            Log.d("PlayerViewModel","result->${result}")
             when(result){
                 is Resource.Success ->{
                     _track.value= TrackState(success = result.data)
