@@ -34,7 +34,4 @@ class AppModule {
     fun provideSpotifyRepository(api:SpotifyAPi):SpotifyRepository{
         return SpotifyRepositoryImpl(api)
     }
-
-
-
 }
